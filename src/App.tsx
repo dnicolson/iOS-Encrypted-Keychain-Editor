@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, MouseEvent } from 'react';
+import Keychain from './components/Keychain';
+import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [backupPath, setBackupPath] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [decryptButtonPressed, setDecryptButtonPressed] = useState<boolean>(false);
+
+  function backButton() {
+    setDecryptButtonPressed(false);
+  }
+
+  function decryptButton(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    if (backupPath && password) {
+      setDecryptButtonPressed(true);
+    }
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {decryptButtonPressed ? (
+        <Keychain backupPath={backupPath} password={password} backButton={backButton} />
+      ) : (
+        <div className="authenticate">
+          <h1>iOS Keychain Backup Editor</h1>
+          <form>
+            <div className="mb-3">
+              <label htmlFor="backup-path">Backup Path</label>
+              <input type="text" className="form-control" id="backup-path" placeholder="Backup Path" onChange={(e) => setBackupPath(e.target.value)} defaultValue={backupPath} />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password">Password</label>
+              <input type="password" className="form-control" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} defaultValue={password} />
+            </div>
+            <button type="submit" className="btn btn-primary" onClick={decryptButton} disabled={!backupPath || !password}>
+              Decrypt Keychain
+            </button>
+          </form>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,42 +1,58 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+html {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+h1 {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.authenticate {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.authenticate form {
+  width: 500px;
+  margin: 0 auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.authenticate form button {
+  display: block;
+  margin: 0 auto;
 }
 
-.card {
-  padding: 2em;
+.modal {
+  display: block !important;
 }
 
-.read-the-docs {
-  color: #888;
+.modal textarea {
+  width: 100%;
+  min-height: 500px;
+}
+
+.keychain {
+  padding: 10px;
+}
+
+.editable-count {
+  float: right;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+table th:last-child {
+  width: 62px;
 }
