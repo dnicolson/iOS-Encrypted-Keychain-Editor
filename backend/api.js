@@ -36,14 +36,14 @@ app.post('/decrypt', async (req, res) => {
   const iRestore = new IRestore(req.body.path, req.body.password);
   try {
     await iRestore.dumpKeys(path.join(tempDir.name, 'keys.json'));
-    await iRestore.restore('KeychainDomain', path.join(tempDir.name, '/KeychainDomain'));
+    await iRestore.restore('KeychainDomain', path.join(tempDir.name, 'KeychainDomain'));
   } catch (error) {
     return res.status(500).send(`irestore error: ${error}`);
   }
 
   // Decrypt Keychain and partial Keychain
   const keychain = await plist.readFileSync(path.join(tempDir.name, path.join('KeychainDomain', 'keychain-backup.plist')));
-  const partialDecryptedKeychain = JSON.parse(fs.readFileSync(path.join(tempDir.name, '/keys.json')));
+  const partialDecryptedKeychain = JSON.parse(fs.readFileSync(path.join(tempDir.name, 'keys.json')));
 
   // Create JSON payload
   const payload = {};
