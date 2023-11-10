@@ -14,8 +14,8 @@ This technique was originally developed to allow [signing in to Feedly](https://
 
 ## Running
 
-1. `git clone git@github.com:dnicolson/iOSKeychainBackupEditor.git`
-2. `cd iOSKeychainBackupEditor`
+1. `git clone git@github.com:dnicolson/iOS-Encrypted-Keychain-Editor.git`
+2. `cd iOS-Encrypted-Keychain-Editor`
 1. `npm install`
 2. `npm run start`
 
