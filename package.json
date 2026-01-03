@@ -17,7 +17,7 @@
     "cors": "^2.8.5",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "express": "^4.21.0",
+    "express": "^4.22.1",
     "irestore": "^1.0.2",
     "path": "^0.12.7",
     "react": "^18.2.0",
