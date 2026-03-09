@@ -116,7 +116,7 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
             headers: {
               'Content-Type': 'application/json',
             },
-          }
+          },
         );
         setData(response.data);
       } catch (error: unknown) {
@@ -149,12 +149,12 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
     let parsedItem: KeychainItem;
     try {
       parsedItem = JSON.parse(textareaRef.current?.value as string);
-    } catch (SyntaxError) {
+    } catch {
       alert('Invalid JSON.');
       return;
     }
 
-    Object.keys(keychainTypesMap).forEach((type) => {
+    Object.keys(keychainTypesMap).forEach(type => {
       const newData = Object.assign({}, data);
       const keychainItems = newData[type as KeychainType];
       keychainItems.items.forEach((item: KeychainItem, index: number) => {
@@ -168,7 +168,7 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
       setData(newData);
     });
 
-    setUpdatedItems((updatedItems) => [...updatedItems, parsedItem]);
+    setUpdatedItems(updatedItems => [...updatedItems, parsedItem]);
 
     setIsOpen(false);
   }
@@ -195,7 +195,7 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
           password: password,
           items: JSON.stringify(updatedItems),
         },
-        { responseType: 'blob' }
+        { responseType: 'blob' },
       );
     } catch (error: unknown) {
       if (error instanceof AxiosError && error.response) {

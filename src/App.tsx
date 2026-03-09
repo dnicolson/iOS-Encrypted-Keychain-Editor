@@ -30,11 +30,11 @@ function App() {
           <form>
             <div className="mb-3">
               <label htmlFor="backup-path">Backup Path</label>
-              <input type="text" className="form-control" id="backup-path" placeholder="Backup Path" onChange={(e) => setBackupPath(e.target.value)} defaultValue={backupPath} />
+              <input type="text" className="form-control" id="backup-path" placeholder="Backup Path" onChange={e => setBackupPath(e.target.value)} defaultValue={backupPath} />
             </div>
             <div className="mb-3">
               <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} defaultValue={password} />
+              <input type="password" className="form-control" id="password" placeholder="Password" onChange={e => setPassword(e.target.value)} defaultValue={password} />
             </div>
             <button type="submit" className="btn btn-primary" onClick={decryptButton} disabled={!backupPath || !password}>
               Decrypt Keychain
