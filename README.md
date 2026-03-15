@@ -6,7 +6,7 @@
 
 Allows editing of the iOS keychain without a jailbreak by updating the `keychain-backup.plist` file of an encrypted backup.
 
-This repository is a basic React frontend for [irestore](https://github.com/dnicolson/node-irestore) with a simple Node.js backend to stitch together various Keychain pieces. It’s beyond the scope of this project for now to re-encrypt the whole backup, the encrypted `keychain-backup.plist` file can be added to an encrypted backup with a tool like [iMazing](https://imazing.com/).
+This repository is a basic React frontend for [irestore](https://github.com/dnicolson/node-irestore) with a simple Node.js backend to stitch together various Keychain pieces. It’s beyond the scope of this project to rebuild and transfer a full backup in the browser. The intended output is an updated encrypted `keychain-backup.plist`, which you can insert back into a backup with `irestore`.
 
 Not all Keychain items are editable as `ThisDeviceOnly` items are only able to be decrypted with the hardware `0x835` key which is unique to each device.
 
@@ -24,9 +24,16 @@ This technique was originally developed to allow [signing in to Feedly](https://
 2. Enter the absolute path and password into iOS Keychain Backup Editor
 3. Make edits to the Keychain
 4. Click "Download Keychain Backup"
-5. Create an editable backup in iMazing of encrypted backup
-6. Replace the `/KeychainDomain/keychain-backup.plist` file under "File System"
-7. Restore backup
+5. Run:
+
+   ```bash
+   irestore /path/to/backup restore KeychainDomain /tmp/backup-keychaindomain
+   cp ~/Downloads/keychain-backup.plist /tmp/backup-keychaindomain/keychain-backup.plist
+   irestore /path/to/backup unrestore KeychainDomain /tmp/backup-keychaindomain /path/to/backup-updated
+   rm -rf /tmp/backup-keychaindomain
+   ```
+
+6. Restore the new backup
 
 ## License
 
