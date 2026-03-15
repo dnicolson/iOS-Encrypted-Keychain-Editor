@@ -154,8 +154,8 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
       return;
     }
 
+    const newData = Object.assign({}, data);
     Object.keys(keychainTypesMap).forEach(type => {
-      const newData = Object.assign({}, data);
       const keychainItems = newData[type as KeychainType];
       keychainItems.items.forEach((item: KeychainItem, index: number) => {
         if (item.persistref === parsedItem.persistref) {
@@ -164,11 +164,22 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
           }
         }
       });
-
-      setData(newData);
     });
 
-    setUpdatedItems(updatedItems => [...updatedItems, parsedItem]);
+    setData(newData);
+
+    setUpdatedItems(updatedItems => {
+      const newUpdatedItems = [...updatedItems];
+      const existingItemIndex = newUpdatedItems.findIndex(item => item.persistref === parsedItem.persistref);
+
+      if (existingItemIndex === -1) {
+        newUpdatedItems.push(parsedItem);
+      } else {
+        newUpdatedItems[existingItemIndex] = parsedItem;
+      }
+
+      return newUpdatedItems;
+    });
 
     setIsOpen(false);
   }
