@@ -49,10 +49,10 @@ app.post('/decrypt', async (req, res) => {
   const payload = {};
   for (const [key, value] of Object.entries(keychainItemMap)) {
     payload[key] = {
-      total: keychain[key].length,
+      total: keychain[key]?.length || 0,
       items: [],
     };
-    partialDecryptedKeychain[value].forEach(item => {
+    partialDecryptedKeychain[value]?.forEach(item => {
       const ignoredKeys = Object.keys(item).filter(key => key[0] === '_');
       ignoredKeys.forEach(ignoredKey => {
         delete item[ignoredKey];
