@@ -16,7 +16,7 @@
     "concurrently": "^9.2.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
-    "irestore": "^1.1.1",
+    "irestore": "^1.2.0",
     "path": "^0.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
