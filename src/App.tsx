@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useCallback, useEffect, useState, MouseEvent } from 'react';
 import Keychain from './components/Keychain';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,10 +8,40 @@ function App() {
   const [backupPath, setBackupPath] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [decryptButtonPressed, setDecryptButtonPressed] = useState<boolean>(false);
+  const [pathname, setPathname] = useState<string>(window.location.pathname);
+
+  useEffect(() => {
+    function onPopState() {
+      const nextPathname = window.location.pathname;
+      setPathname(nextPathname);
+      setDecryptButtonPressed(nextPathname === '/keychain');
+    }
+
+    window.addEventListener('popstate', onPopState);
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (pathname === '/keychain' && (!backupPath || !password)) {
+      window.history.replaceState({}, '', '/');
+    }
+  }, [backupPath, password, pathname]);
+
+  const hasCredentials = Boolean(backupPath && password);
+  const currentPathname = pathname === '/keychain' && !hasCredentials ? '/' : pathname;
 
   function backButton() {
     setDecryptButtonPressed(false);
+    window.history.pushState({}, '', '/');
+    setPathname('/');
   }
+
+  const decryptionSucceeded = useCallback(() => {
+    window.history.pushState({}, '', '/keychain');
+    setPathname('/keychain');
+  }, []);
 
   function decryptButton(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -22,8 +52,8 @@ function App() {
 
   return (
     <>
-      {decryptButtonPressed ? (
-        <Keychain backupPath={backupPath} password={password} backButton={backButton} />
+      {decryptButtonPressed || currentPathname === '/keychain' ? (
+        <Keychain backupPath={backupPath} password={password} backButton={backButton} onDecrypted={decryptionSucceeded} />
       ) : (
         <div className="authenticate">
           <h1>iOS Keychain Backup Editor</h1>

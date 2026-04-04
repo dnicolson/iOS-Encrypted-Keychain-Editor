@@ -90,9 +90,10 @@ type KeychainProps = {
   backupPath: string;
   password: string;
   backButton: () => void;
+  onDecrypted: () => void;
 };
 
-function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Element {
+function Keychain({ backupPath, password, backButton, onDecrypted }: KeychainProps): JSX.Element {
   const [data, setData] = useState<Keychain>();
   const [updatedItems, setUpdatedItems] = useState<KeychainItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -119,6 +120,7 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
           },
         );
         setData(response.data);
+        onDecrypted();
       } catch (error: unknown) {
         if (error instanceof AxiosError && error.response) {
           alert(error.response.data);
@@ -129,7 +131,7 @@ function Keychain({ backupPath, password, backButton }: KeychainProps): JSX.Elem
       setIsLoading(false);
     }
     fetchData();
-  }, [backupPath, password]);
+  }, [backupPath, onDecrypted, password]);
 
   function openModal(data: KeychainItem) {
     setKeychainEdited(false);
