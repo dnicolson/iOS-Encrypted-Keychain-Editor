@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type ReactElement } from 'react';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import Table from './Table';
@@ -78,8 +78,7 @@ type Keychain = {
   };
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const keychainTypesMap: { [key in KeychainType]: string } = {
+const keychainTypesMap: { [key in KeychainType]: string } = {
   cert: 'Certificates',
   genp: 'General Passwords',
   inet: 'Internet Passwords',
@@ -93,7 +92,7 @@ type KeychainProps = {
   onDecrypted: () => void;
 };
 
-function Keychain({ backupPath, password, backButton, onDecrypted }: KeychainProps): JSX.Element {
+function Keychain({ backupPath, password, backButton, onDecrypted }: KeychainProps): ReactElement {
   const [data, setData] = useState<Keychain>();
   const [updatedItems, setUpdatedItems] = useState<KeychainItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
