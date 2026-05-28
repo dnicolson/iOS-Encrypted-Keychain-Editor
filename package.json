@@ -23,7 +23,7 @@
     "react-modal": "^3.16.3",
     "react-table": "^7.8.0",
     "simple-plist": "^1.4.0",
-    "tmp": "^0.2.5"
+    "tmp": "^0.2.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
