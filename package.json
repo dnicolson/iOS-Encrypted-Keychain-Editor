@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^1.16.0",
     "bootstrap": "^5.3.8",
-    "concurrently": "^9.2.1",
+    "concurrently": "^10.0.3",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "irestore": "^1.2.0",
