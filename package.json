@@ -11,7 +11,7 @@
     "start": "concurrently \"cd backend && node api.js\" \"vite\""
   },
   "dependencies": {
-    "axios": "^1.16.0",
+    "axios": "^1.18.0",
     "bootstrap": "^5.3.8",
     "concurrently": "^10.0.3",
     "cors": "^2.8.6",
